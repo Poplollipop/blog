@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,10 +53,30 @@ public class PostController {
     @GetMapping("/{postId}")
     public ResponseEntity<?> getPostById(@PathVariable Long postId){
         try{
-            Post post = postService.gePostById(postId);
+            Post post = postService.getPostById(postId);
             return ResponseEntity.ok(post);
         }catch(EntityNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+
+    @PutMapping("/{postId}/like")
+    public ResponseEntity<?> likePost(@PathVariable Long postId){
+        try{
+            postService.likePost(postId);
+            return ResponseEntity.ok(new String[]{"成功發送喜歡！"});
+        }catch(EntityNotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> searchByName(@PathVariable String name){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(postService.searchByName(name));
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
