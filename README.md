@@ -12,7 +12,7 @@
 1. 安裝所需依賴：`mvn install`
 2. 啟動後端：`mvn spring-boot:run`
 3. 啟動前端：進入 `/angular` 目錄，執行 `ng serve`
-
+```
 ## 文件結構
 /src
  ├── main
@@ -33,7 +33,7 @@
  │             └── CommentRepository.java
 
 
-
+```
 ## 文件解釋
 controller (控制層): 處理 HTTP 請求，定義 RESTful API 端點。
 
